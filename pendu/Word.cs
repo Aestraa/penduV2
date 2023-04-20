@@ -1,4 +1,6 @@
-﻿namespace pendu
+﻿using System;
+
+namespace pendu
 {
     public class Word
     {
@@ -20,5 +22,9 @@
             return Text.IndexOf(letter, startIndex);
         }
 
+        internal void Clear()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
