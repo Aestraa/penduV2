@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -16,7 +17,7 @@ namespace pendu
 
         }
 
-
+        private ObservableCollection<string> _items;
         private Word _currentWord;
         private StringBuilder _hiddenWord;
         private ObservableCollection<char> _guessedLetters;
@@ -46,10 +47,10 @@ namespace pendu
         {
             _currentWord = WordGenerator.GetRandomWord();
             _hiddenWord = new StringBuilder(new string('_', _currentWord.Length));
-            _guessedLetters = new ObservableCollection<char>();
+            GuessedLetters = new ObservableCollection<char>();
             HiddenWord = _hiddenWord.ToString();
+            
         }
-
 
         private ICommand _validateWordCommand;
         public ICommand ValidateWordCommand
@@ -62,11 +63,34 @@ namespace pendu
             }
         }
 
+        public ObservableCollection<string> ListItems
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                OnPropertyChanged("ListItems");
+            }
+        }
+
+
+        private bool IsAlphabetic(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!char.IsLetter(c))
+                {
+                    _ = MessageBox.Show("La lettre ne peut pas être un caractère spécial ni un chiffre!", "Erreur");
+                    return false;
+                }
+            }
+            return true;
+        }
 
         private void ValidateWord(object parameter)
         {
             string input = WordToFind?.ToUpper();
-            if (!string.IsNullOrWhiteSpace(input) && input.Length == 1)
+            if (!string.IsNullOrWhiteSpace(input) && input.Length == 1 && IsAlphabetic(input))
             {
                 char letter = input[0];
                 if (!_guessedLetters.Contains(letter))
@@ -89,17 +113,28 @@ namespace pendu
                         {
                             _ = MessageBox.Show("Félicitations, vous avez deviné le mot!", "Victoire");
                             InitializeGame();
+                        
                         }
                     }
                 }
             }
             WordToFind = string.Empty;
+
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                
+            }
         }
 
         private bool CanValidateWord(object parameter)
         {
             return true;
         }
+
 
         private ICommand _newGameCommand;
         public ICommand NewGameCommand
@@ -116,6 +151,8 @@ namespace pendu
         private void NewGame(object parameter)
         {
             InitializeGame();
+            
+        
         }
 
         private bool CanNewGame(object parameter)

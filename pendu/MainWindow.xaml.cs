@@ -14,6 +14,7 @@ namespace pendu
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+
         }
 
  

@@ -11,7 +11,7 @@ namespace pendu
             new Word("Pentiminax"),
             new Word("Soleil"),
             new Word("Immeuble"),
-            new Word("Canapé")
+            new Word("Maisonette")
         };
 
         private static readonly Random random = new Random();
