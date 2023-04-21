@@ -21,7 +21,7 @@ namespace pendu
         private Word _currentWord;
         private StringBuilder _hiddenWord;
         private ObservableCollection<char> _guessedLetters;
-
+        
         public ObservableCollection<char> GuessedLetters
         {
             get => _guessedLetters;
@@ -50,6 +50,7 @@ namespace pendu
             GuessedLetters = new ObservableCollection<char>();
             HiddenWord = _hiddenWord.ToString();
             
+
         }
 
         private ICommand _validateWordCommand;
@@ -122,16 +123,9 @@ namespace pendu
 
         }
 
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                
-            }
-        }
-
         private bool CanValidateWord(object parameter)
         {
+
             return true;
         }
 

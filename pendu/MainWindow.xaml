@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:pendu="clr-namespace:pendu"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        Height="350" Width="525" ResizeMode="NoResize" SizeToContent="Manual">
+        Height="600" Width="875" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight">
     <Window.DataContext>
         <pendu:MainWindowViewModel/>
     </Window.DataContext>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="525">
         <TextBlock Text="Jeu du pendu" FontWeight="Bold" HorizontalAlignment="Center" FontSize="16"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
-            <TextBlock Text="Mot à trouver"/>
+            <TextBlock Text="Tapez une lettre :"/>
             <TextBox x:Name="motatrouver" Text="{Binding WordToFind, UpdateSourceTrigger=PropertyChanged}" Width="120" Height="23" TextWrapping="Wrap" Margin="10,0,0,0"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -21,16 +21,11 @@
                 </Style>
             </StackPanel.Resources>
             <Button Content="Nouvelle partie" Command="{Binding NewGameCommand}" />
-            <Button Content="Valider" Command="{Binding ValidateWordCommand}" />
+            <Button Content="Valider" Command="{Binding ValidateWordCommand}"/>
         </StackPanel>
         <StackPanel Orientation="Vertical">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Margin" Value="0,20,0,5"/>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock Name="Essais" HorizontalAlignment="Center" Text="Mots déjà essayés :"/>
-            <ListBox x:Name="listeDeMots"  ItemsSource="{Binding GuessedLetters}" Height="40" Width="160"/>
+            <TextBlock Name="Essais" HorizontalAlignment="Center" Margin="0 10 0 5" Text="Lettres déjà essayées :"/>
+            <ListBox x:Name="listeDeMots" Padding="10"  ItemsSource="{Binding GuessedLetters}"  Width="160"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" Margin="0,10,0,0">
             <StackPanel.Resources>
